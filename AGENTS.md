@@ -71,10 +71,13 @@ while preserving all critical instructions. The agent must still communicate wit
 * 源文件在 [notebook sources](_notebooks/) 与 [docx sources](_docx/)；转换后的 Markdown 输出到 [generated posts](_posts/)（生成物，不要手工改）。
 * 多课程拆分文件（`*_csp.md`/`*_csa.md`/`*_csse.md`/`*_content.md`）为生成物，禁止手改；规则见 [scripts/split_multi_course_files.py](scripts/split_multi_course_files.py)。
 * Notebook/DOCX 转换规则见 [scripts/convert_notebooks.py](scripts/convert_notebooks.py) 与 [scripts/convert_docx.py](scripts/convert_docx.py)。
+* `_notebooks/projects/` 与 `_posts/projects/` 由 `_projects/*/notebooks/` 复制生成，修改要改 `_projects/` 下的源文件。
+* Notebook 代码中不要出现 `{{` 或 `{%`（如 Python f-string 的 `{{` 转义），Jekyll 的 Liquid 会解析失败导致 `make` 中断；把字面量大括号放进变量或用字符串拼接。
 
 ### 项目注册与样式
 
 * 新项目遵循 [_projects/REGISTRATION.md](_projects/REGISTRATION.md) 注册/构建约定；架构示例见 [_projects/ARCHITECTURE.md](_projects/ARCHITECTURE.md)。
+* 项目 `sass/main.scss` 会经 `_sass/projects/_all.scss` 导入全站样式包，因此所有规则必须包在项目根 class 下（如 `.srfsc-app`），变量需加项目前缀，避免污染其他页面。
 * 样式优先使用 SCSS；主题切换与样式约定见 [README.md](README.md)。
 
 ### 后端边界

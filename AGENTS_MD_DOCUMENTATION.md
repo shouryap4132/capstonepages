@@ -69,10 +69,13 @@ Split logic into clear layers:
 * Sources live in [notebook sources](_notebooks/) and [docx sources](_docx/); converted Markdown is written to [generated posts](_posts/) (generated, do not hand-edit).
 * Course-split outputs (`*_csp.md`/`*_csa.md`/`*_csse.md`/`*_content.md`) are generated; never edit them. See [scripts/split_multi_course_files.py](scripts/split_multi_course_files.py).
 * Conversion behavior is defined in [scripts/convert_notebooks.py](scripts/convert_notebooks.py) and [scripts/convert_docx.py](scripts/convert_docx.py).
+* `_notebooks/projects/` and `_posts/projects/` are copied from `_projects/*/notebooks/`; edit the `_projects/` source.
+* Notebook code must not contain `{{` or `{%` (e.g. escaped braces in Python f-strings): Liquid fails to parse them and `make` aborts. Keep literal braces in variables or use concatenation.
 
 ### Project Registry & Styling
 
 * New projects must follow [_projects/REGISTRATION.md](_projects/REGISTRATION.md); architecture reference in [_projects/ARCHITECTURE.md](_projects/ARCHITECTURE.md).
+* A project's `sass/main.scss` is imported into the site-wide bundle via `_sass/projects/_all.scss`, so scope every rule under the project's root class (e.g. `.srfsc-app`) and prefix variables to avoid leaking styles onto other pages.
 * Use SCSS-first styling; theme and styling conventions are in [README.md](README.md).
 
 ### Backend Boundary
